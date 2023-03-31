@@ -10,8 +10,12 @@ import {
   Welcome,
 } from "../components";
 
-const Home = () => {
-  const router = useRouter();
+import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { getJobs } from "../api/get";
+
+const QueryChild = () => {
+  const { data, isLoading, error } = useQuery(["GET_POPULAR_JOBS"], getJobs);
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Stack.Screen
@@ -35,11 +39,21 @@ const Home = () => {
           }}
         >
           <Welcome />
-          <Popularjobs />
-          <Nearbyjobs />
+          <Popularjobs data={data} isLoading={isLoading} error={error} />
+          <Nearbyjobs data={data} isLoading={isLoading} error={error} />
         </View>
       </ScrollView>
     </SafeAreaView>
+  );
+};
+
+const Home = () => {
+  const queryClient = new QueryClient();
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <QueryChild />
+    </QueryClientProvider>
   );
 };
 
