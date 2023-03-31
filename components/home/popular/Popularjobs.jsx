@@ -11,18 +11,10 @@ import {
 import styles from "./popularjobs.style";
 import { COLORS, SIZES } from "../../../constants";
 import PopularJobCard from "../../common/cards/popular/PopularJobCard";
-import useFetch from "../../../hook/useFetch";
-import { useQuery } from "react-query";
-import { getJobs } from "../../../api/get";
 
 const Popularjobs = ({ data, isLoading }) => {
   const router = useRouter();
   const error = false;
-
-  useEffect(() => {
-    console.log("MIRAR");
-    console.log(data);
-  }, [data]);
 
   const [selectedJob, setSelectedJob] = useState();
 
