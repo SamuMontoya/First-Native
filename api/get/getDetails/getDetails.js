@@ -1,15 +1,11 @@
 import axios from "axios";
-import { API } from "../../config/axios";
-import { baseURL } from "../../enviroments/enviroments";
 
-export const getDetails = async (params) => {
-  let response = null;
-
+export const getJobs = () => {
   const options = {
     method: "GET",
     url: "https://jsearch.p.rapidapi.com/job-details",
     params: {
-      job_id: "VtN0OMHj2lIAAAAAAAAAAA==",
+      job_id: "hO4waEcPOOsAAAAAAAAAAA==",
       extended_publisher_details: "false",
     },
     headers: {
@@ -18,14 +14,14 @@ export const getDetails = async (params) => {
     },
   };
 
-  await axios
+  return axios
     .request(options)
-    .then((res) => {
-      response = res;
-      console.log("RES -> ", response);
+    .then(function (response) {
+      console.log(response["data"]["data"][0]);
       return response;
     })
     .catch(function (error) {
       console.error(error);
+      throw error;
     });
 };
